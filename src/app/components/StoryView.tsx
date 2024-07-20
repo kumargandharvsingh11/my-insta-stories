@@ -2,11 +2,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import users from "@/data/stories";
+import { calculateProgress, stringPercentageToNumber } from "@/utils";
 
 interface StoryViewProps {
     initialUserId: number;
     onClose: () => void; // Function to close the StoryView
 }
+const storyTime = 5000
 
 const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
     const [progressBarWidth, setProgressBarWidth] = useState(0);
@@ -23,51 +25,53 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
 
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
-        const storyTime = 2000
 
         const autoAdvance = () => {
             if (currentUser) {
                 if (currentStoryIndex < currentUser.stories.length - 1) {
                     setCurrentStoryIndex(currentStoryIndex + 1);
+                    if (progressBarRef.current) {
+                    const currentWidth = progressBarRef.current.style.width;
+                    setProgressBarWidth(stringPercentageToNumber(currentWidth));
+                    }
                 } else if (currentUserIndex < users.length - 1) {
                     setCurrentUserIndex(currentUserIndex + 1);
                     setCurrentStoryIndex(0);
+                    if (progressBarRef.current) {
+                        progressBarRef.current.style.width = "0%";
+                    }
+                    setProgressBarWidth(0);
                 } else {
                     onClose();
+                    setProgressBarWidth(0);
                 }
             }
 
             // Reset elapsedTime and progress bar before moving to the next story
-            console.log("Resetting elapsedTime and progressBarWidth");
             elapsedTime.current = 0;
-            setProgressBarWidth(0);
-            if (progressBarRef.current) {
-                progressBarRef.current.style.width = "0%";
-            }
+            
         };
 
         if (!isHolding) {
-            elapsedTime.current = 0;
-            setProgressBarWidth(0);
-            if (progressBarRef.current) {
-              progressBarRef.current.style.width = "0%";
-            }
             interval = setInterval(() => {
-              if (progressBarRef.current && currentUser) {
-                elapsedTime.current += 100;
-                const progress = Math.min((elapsedTime.current / storyTime) * 100, 100);
-                progressBarRef.current.style.width = `${progress}%`;
-        
-                // Log progress and elapsed time
-                console.log("elapsedTime:", elapsedTime.current);
-                console.log("progress:", progress);
-        
-                if (elapsedTime.current >= storyTime) {
-                  autoAdvance();
+                if (progressBarRef.current && currentUser) {
+                    elapsedTime.current += 100;
+                    const progress = Math.min((elapsedTime.current / storyTime) * 100, 100);
+
+                    //for adjusting width of multiple stories
+                    if (currentUser.stories.length > 1) {
+                        const computedWidth = calculateProgress(currentStoryIndex, currentUser.stories.length - 1, progress);
+                        progressBarRef.current.style.width = `${computedWidth}%`;
+                    }else{
+                        progressBarRef.current.style.width = `${progress}%`;
+                    }
+
+                    if (elapsedTime.current >= storyTime) {
+                        autoAdvance();
+                    }
                 }
-              }
             }, 100); // Update every 100ms
-          }
+        }
 
         return () => {
             if (interval) {
@@ -84,14 +88,6 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
             setCurrentUserIndex(currentUserIndex - 1);
             setCurrentStoryIndex(users[currentUserIndex - 1].stories.length - 1);
         }
-        // Console log after handlePrev (CORRECTED)
-        console.log(
-            "After handlePrev:",
-            "currentUserIndex:",
-            currentUserIndex,
-            "currentStoryIndex:",
-            currentStoryIndex
-        );
     };
 
     const handleNext = () => {
@@ -101,19 +97,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
             setCurrentUserIndex(currentUserIndex + 1);
             setCurrentStoryIndex(0);
         }
-        // Console log after handleNext (CORRECTED)
-        console.log(
-            "After handleNext:",
-            "currentUserIndex:",
-            currentUserIndex,
-            "currentStoryIndex:",
-            currentStoryIndex
-        );
-    }
-    if (progressBarRef.current) {
-    console.log("progressBarRef.current.style.width",progressBarRef?.current?.style?.width)
-    }else{
-        console.log("progressBarRef.current not present")
+
     }
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black">
@@ -158,11 +142,12 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
             <div className="absolute top-0 left-0 h-1 bg-white w-full">
                 <div
                     ref={progressBarRef}  // Attach ref to progress bar
-                    className="h-full bg-gray-800 transition-all duration-10 ease-in-out"
+                    className="h-full bg-gray-800 transition-all duration-0 ease-in-out"
                 ></div>
             </div>
+
             {/* User Info */}
-            <div className="absolute top-4 left-4 flex items-center">
+            < div className="absolute top-4 left-4 flex items-center" >
                 {currentUser && (
                     <>
                         <Image
@@ -179,7 +164,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
                 )}
             </div>
             {/* ... Close Button (we'll add this in the next step) */}
-        </div>
+        </div >
     );
 };
 
