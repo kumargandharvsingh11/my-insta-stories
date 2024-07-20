@@ -23,7 +23,6 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
 
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
-        const storyTime = 2000
 
         const autoAdvance = () => {
             if (currentUser) {
@@ -55,14 +54,14 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
             interval = setInterval(() => {
               if (progressBarRef.current && currentUser) {
                 elapsedTime.current += 100;
-                const progress = Math.min((elapsedTime.current / storyTime) * 100, 100);
+                const progress = Math.min((elapsedTime.current / 2500) * 100, 100);
                 progressBarRef.current.style.width = `${progress}%`;
         
                 // Log progress and elapsed time
                 console.log("elapsedTime:", elapsedTime.current);
                 console.log("progress:", progress);
         
-                if (elapsedTime.current >= storyTime) {
+                if (elapsedTime.current >= 2500) {
                   autoAdvance();
                 }
               }
@@ -110,11 +109,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
             currentStoryIndex
         );
     }
-    if (progressBarRef.current) {
-    console.log("progressBarRef.current.style.width",progressBarRef?.current?.style?.width)
-    }else{
-        console.log("progressBarRef.current not present")
-    }
+
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black">
             {currentUser && currentUser.stories[currentStoryIndex] && (
@@ -158,7 +153,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
             <div className="absolute top-0 left-0 h-1 bg-white w-full">
                 <div
                     ref={progressBarRef}  // Attach ref to progress bar
-                    className="h-full bg-gray-800 transition-all duration-10 ease-in-out"
+                    className="h-full bg-gray-800 transition-all duration-500"
                 ></div>
             </div>
             {/* User Info */}

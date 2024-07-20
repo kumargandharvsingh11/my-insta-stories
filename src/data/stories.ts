@@ -31,6 +31,16 @@ const users: User[] = [
       { id: 3, content: require("./../../public/images/story3.jpg") },
     ],
   },
+  {
+    id: 3,
+    username: "user3",
+    profilePicture: require("./../../public/images/profile3.jpg"),
+    stories: [
+      { id: 4, content: require("./../../public/images/story4.jpg") },
+      { id: 5, content: require("./../../public/images/story5.jpg") },
+      { id: 6, content: require("./../../public/images/story6.jpg") },
+    ],
+  },
   // Add more users as needed
 ];
 
