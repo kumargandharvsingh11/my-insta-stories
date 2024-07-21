@@ -1,63 +1,62 @@
-import { StaticImageData } from "next/image";
+import {User} from '@/types'
 
-interface Story {
-  id: number;
-  content: StaticImageData; // Image or video content
-}
-
-interface User {
-  id: number;
-  username: string;
-  profilePicture: StaticImageData; // Assuming you'll use local images for now
-  stories: Story[];
-}
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+// const BASE_URL =  "http://localhost:3000";
+console.log("base url", BASE_URL)
 
 const users: User[] = [
   {
     id: 1,
     username: "StarryEyedSkies",
-    profilePicture: require("./../../public/images/profile1.jpg"),
+    profilePicture: `${BASE_URL}/images/profile1.jpg`,
     stories: [
-      { id: 1, content: require("./../../public/images/story1.jpg") },
-      // Add more stories for user1 if needed
+      { id: 1, content: `${BASE_URL}/images/story1.jpg` },
     ],
   },
   {
     id: 2,
     username: "BeatsByBen",
-    profilePicture: require("./../../public/images/profile2.jpg"),
+    profilePicture: `${BASE_URL}/images/profile2.jpg`,
     stories: [
-      { id: 2, content: require("./../../public/images/story2.jpg") },
-      { id: 3, content: require("./../../public/images/story3.jpg") },
+      { id: 2, content:`${BASE_URL}/images/story2.jpg` },
+      { id: 3, content:`${BASE_URL}/images/story3.jpg` },
     ],
   },
   {
     id: 3,
     username: "Wanderlust",
-    profilePicture: require("./../../public/images/profile3.jpg"),
+    profilePicture: `${BASE_URL}/images/profile3.jpg`,
     stories: [
-      { id: 4, content: require("./../../public/images/story4.jpg") },
-      { id: 5, content: require("./../../public/images/story5.jpg") },
-      { id: 6, content: require("./../../public/images/story6.jpg") },
+      { id: 4, content: `${BASE_URL}/images/story4.jpg` },
+      { id: 5, content: `${BASE_URL}/images/story5.jpg`},
+      { id: 6, content: `${BASE_URL}/images/story6.jpg` },
     ],
   },
   {
     id: 4,
     username: "UrbanExplorer",
-    profilePicture: require("./../../public/images/profile4.jpg"),
+    profilePicture: `${BASE_URL}/images/profile4.jpg`,
     stories: [
-      { id: 7, content: require("./../../public/images/story7.jpg") },
+      { id: 7, content: `${BASE_URL}/images/story7.jpg` },
     ],
   },
   {
     id: 5,
     username: "VintageVoyage",
-    profilePicture: require("./../../public/images/profile5.jpg"),
+    profilePicture: `${BASE_URL}/images/profile5.jpg`,
     stories: [
-      { id: 8, content: require("./../../public/images/story8.jpg") },
-      { id: 9, content: require("./../../public/images/story9.jpg") },
+      { id: 8, content:`${BASE_URL}/images/story8.jpg` },
+      { id: 9, content: `${BASE_URL}/images/story9.jpg` },
     ],
-  }
+  },
+  {
+    id: 6,
+    username: "LunaFox",
+    profilePicture: `${BASE_URL}/images/profile6.jpg`,
+    stories: [
+      { id: 10, content: `${BASE_URL}/images/story10.jpg` },
+    ],
+  },
   // Add more users as needed
 ];
 
