@@ -1,10 +1,7 @@
 import { User } from '@/types';
 
 export async function getUsersStories(): Promise<User[]> {
-  return fetch(`http://localhost:3000/api/users`)
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`)
     .then((res) => res.json())
-    .catch((err) => ({
-      success: false,
-      error: { message: err.message, details: err }
-    }));
+    .catch((err) => ([]));
 }
