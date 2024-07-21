@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import {User as IUser}  from "@/types"
+import { User as IUser } from "@/types"
 import { calculateProgress, stringPercentageToNumber } from "@/utils";
 
 interface StoryViewProps {
@@ -28,7 +28,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) 
     const [storyTransition, setStoryTransition] = useState(false);
 
     useEffect(() => {
-        if(currentStoryIndex===0 && currentUserIndex===0) return; // If both are 0 no transition needed
+        if (currentStoryIndex === 0 && currentUserIndex === 0) return; // If both are 0 no transition needed
         setStoryTransition(true);
         const timeout = setTimeout(() => {
             setStoryTransition(false);
@@ -134,9 +134,11 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) 
                         fill
                         className={`object-contain transition-opacity duration-500 ${storyTransition ? "opacity-0" : "opacity-100"
                             }`}
+                        data-testid="story-image"
                     />
                     {/* Tap Zones */}
                     <div
+                        data-testid="left-tap-zone"
                         className="absolute top-0 left-0 w-1/2 h-full"
                         onClick={handlePrev}
                         onTouchStart={() => setIsHolding(true)}
@@ -145,6 +147,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) 
                         onMouseUp={() => setIsHolding(false)}
                     />
                     <div
+                        data-testid="right-tap-zone"
                         className="absolute top-0 right-0 w-1/2 h-full"
                         onClick={handleNext}
                         onTouchStart={() => setIsHolding(true)}
@@ -157,6 +160,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) 
 
             <div className="absolute top-4 right-4">
                 <button
+                    data-testid="close-button"
                     className="text-white text-2xl"
                     onClick={onClose}
                 >
@@ -190,6 +194,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) 
                             width={32}
                             height={32}
                             className="rounded-full mr-2"
+                            data-testid="profile-image"
                         />
                         <span className="text-white text-sm font-medium">
                             {currentUser.username}
