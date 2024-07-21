@@ -16,7 +16,7 @@ const users: User[] = [
   {
     id: 1,
     username: "user1",
-    profilePicture: require("./../../public/images/profile1.jpg"), 
+    profilePicture: require("./../../public/images/profile1.jpg"),
     stories: [
       { id: 1, content: require("./../../public/images/story1.jpg") },
       // Add more stories for user1 if needed
@@ -41,6 +41,23 @@ const users: User[] = [
       { id: 6, content: require("./../../public/images/story6.jpg") },
     ],
   },
+  {
+    id: 4,
+    username: "user4",
+    profilePicture: require("./../../public/images/profile4.jpg"),
+    stories: [
+      { id: 7, content: require("./../../public/images/story7.jpg") },
+    ],
+  },
+  {
+    id: 5,
+    username: "user5",
+    profilePicture: require("./../../public/images/profile5.jpg"),
+    stories: [
+      { id: 8, content: require("./../../public/images/story8.jpg") },
+      { id: 9, content: require("./../../public/images/story9.jpg") },
+    ],
+  }
   // Add more users as needed
 ];
 

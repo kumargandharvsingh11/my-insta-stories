@@ -18,12 +18,9 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
@@ -32,6 +29,22 @@ body {
   }
 }
 
-.story-view-buttons {
-  z-index: 10; /* Or a higher value */
+.story {
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+/* Add this to your global CSS file or a stylesheet linked to your component */
+.story-list-container {
+  overflow-x: auto;
+  /* Enable horizontal scrolling */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+.story-list-container::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, and Opera */
 }

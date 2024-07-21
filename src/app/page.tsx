@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"; // Import useState
+import Image from "next/image";
 import StoryList from "./components/StoryList";
 import StoryView from "./components/StoryView";
 
@@ -19,7 +20,16 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 px-10">
+      {/* Instagram Logo */}
+      <div className="absolute top-12 left-4">
+        <Image
+          src="/images/instaFullLogo.png" // Replace with the actual path to your logo image
+          alt="Instagram Logo"
+          width={160} // Adjust width as needed
+          height={80} // Adjust height as needed
+        />
+      </div>
       <StoryList
         onStoryClick={(userId: number) => {
           setSelectedUserId(userId);
