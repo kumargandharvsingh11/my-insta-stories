@@ -31,8 +31,8 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
                 if (currentStoryIndex < currentUser.stories.length - 1) {
                     setCurrentStoryIndex(currentStoryIndex + 1);
                     if (progressBarRef.current) {
-                    const currentWidth = progressBarRef.current.style.width;
-                    setProgressBarWidth(stringPercentageToNumber(currentWidth));
+                        const currentWidth = progressBarRef.current.style.width;
+                        setProgressBarWidth(stringPercentageToNumber(currentWidth));
                     }
                 } else if (currentUserIndex < users.length - 1) {
                     setCurrentUserIndex(currentUserIndex + 1);
@@ -49,7 +49,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
 
             // Reset elapsedTime and progress bar before moving to the next story
             elapsedTime.current = 0;
-            
+
         };
 
         if (!isHolding) {
@@ -62,7 +62,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
                     if (currentUser.stories.length > 1) {
                         const computedWidth = calculateProgress(currentStoryIndex, currentUser.stories.length - 1, progress);
                         progressBarRef.current.style.width = `${computedWidth}%`;
-                    }else{
+                    } else {
                         progressBarRef.current.style.width = `${progress}%`;
                     }
 
@@ -99,6 +99,16 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
         }
 
     }
+
+    // Calculate divider positions
+    const dividerPositions = React.useMemo(() => {
+        if (!currentUser || currentUser.stories.length <= 1) return [];
+        const numDividers = currentUser.stories.length - 1;
+        return Array.from({ length: numDividers }, (_, i) =>
+            ((i + 1) / currentUser.stories.length) * 100
+        );
+    }, [currentUser]);
+
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black">
             {currentUser && currentUser.stories[currentStoryIndex] && (
@@ -139,11 +149,19 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
             </div>
 
             {/* Progress Bar */}
-            <div className="absolute top-0 left-0 h-1 bg-white w-full">
+            <div className="absolute top-0 left-0 h-1 bg-gray-500 w-full">
                 <div
                     ref={progressBarRef}  // Attach ref to progress bar
-                    className="h-full bg-gray-800 transition-all duration-0 ease-in-out"
+                    className="h-full bg-black transition-all duration-0 ease-in-out"
                 ></div>
+                {/* Dividers */}
+                {dividerPositions.map((position, index) => (
+                    <div
+                        key={index}
+                        className="absolute top-0 h-full w-[8px] bg-white" // Style the divider (adjust as needed)
+                        style={{ left: `${position}%` }}
+                    ></div>
+                ))}
             </div>
 
             {/* User Info */}
