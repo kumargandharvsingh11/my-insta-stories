@@ -20,9 +20,9 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 px-10">
+    <main className="min-h-screen">
       {/* Instagram Logo */}
-      <div className="absolute top-12 left-4">
+      <div className="p-1 border-b-[0.5px] border-gray-400">
         <Image
           src="/images/instaFullLogo.png" // Replace with the actual path to your logo image
           alt="Instagram Logo"

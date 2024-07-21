@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import {User as IUser}  from "@/types"
 import users from "@/data/stories"; // Import the updated data
 
 interface StoryListProps {
@@ -9,11 +10,11 @@ interface StoryListProps {
 }
 const StoryList: React.FC<StoryListProps> = ({ onStoryClick }) => {
     return (
-        <div className="flex overflow-x-auto gap-4 py-4 story-list-container">
-            {users.map((user) => (
+        <div className="flex overflow-x-auto gap-4 py-2 story-list-container">
+            {users.map((user: IUser) => (
                 <div
                     key={user.id}
-                    className="flex-shrink-0 cursor-pointer" // Make it clickable
+                    className="flex-shrink-0 cursor-pointer first:pl-[5px]" // Make it clickable
                     onClick={() => onStoryClick(user.id)}>
                     <div className="story">
                         <Image
