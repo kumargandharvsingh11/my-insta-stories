@@ -1,16 +1,17 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import users from "@/data/stories";
+import {User as IUser}  from "@/types"
 import { calculateProgress, stringPercentageToNumber } from "@/utils";
 
 interface StoryViewProps {
     initialUserId: number;
     onClose: () => void; // Function to close the StoryView
+    users: IUser[];
 }
 const storyTime = 5000
 
-const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
+const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) => {
     const [progressBarWidth, setProgressBarWidth] = useState(0);
     const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
     const [isHolding, setIsHolding] = useState(false);
