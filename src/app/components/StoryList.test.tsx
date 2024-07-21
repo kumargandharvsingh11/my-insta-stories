@@ -38,4 +38,8 @@ describe('StoryList', () => {
     expect(mockOnStoryClick).toHaveBeenCalledTimes(1);
     expect(mockOnStoryClick).toHaveBeenCalledWith(users[0].id);
   });
+
+  it('should fail', () => {
+    expect(1).toBe(0);
+  });
 });
