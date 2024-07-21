@@ -19,12 +19,14 @@ const StoryList: React.FC<StoryListProps> = ({ onStoryClick }) => {
                         <Image
                             src={user.profilePicture}
                             alt={user.username}
-                            width={68}
-                            height={68}
+                            width={72}
+                            height={72}
                             className="rounded-full object-cover  border-4 border-transparent"
                         />
                     </div>
-                    <p className="text-center text-xs mt-1">{user.username}</p>
+                    <div style={{ width: "72px" }}>
+                        <p className="text-center text-xs mt-1 truncate">{user.username}</p>
+                    </div>
                     {/* You can add a visual indicator for multiple stories here if needed */}
                 </div>
             ))}

@@ -15,7 +15,7 @@ interface User {
 const users: User[] = [
   {
     id: 1,
-    username: "user1",
+    username: "StarryEyedSkies",
     profilePicture: require("./../../public/images/profile1.jpg"),
     stories: [
       { id: 1, content: require("./../../public/images/story1.jpg") },
@@ -24,7 +24,7 @@ const users: User[] = [
   },
   {
     id: 2,
-    username: "user2",
+    username: "BeatsByBen",
     profilePicture: require("./../../public/images/profile2.jpg"),
     stories: [
       { id: 2, content: require("./../../public/images/story2.jpg") },
@@ -33,7 +33,7 @@ const users: User[] = [
   },
   {
     id: 3,
-    username: "user3",
+    username: "Wanderlust",
     profilePicture: require("./../../public/images/profile3.jpg"),
     stories: [
       { id: 4, content: require("./../../public/images/story4.jpg") },
@@ -43,7 +43,7 @@ const users: User[] = [
   },
   {
     id: 4,
-    username: "user4",
+    username: "UrbanExplorer",
     profilePicture: require("./../../public/images/profile4.jpg"),
     stories: [
       { id: 7, content: require("./../../public/images/story7.jpg") },
@@ -51,7 +51,7 @@ const users: User[] = [
   },
   {
     id: 5,
-    username: "user5",
+    username: "VintageVoyage",
     profilePicture: require("./../../public/images/profile5.jpg"),
     stories: [
       { id: 8, content: require("./../../public/images/story8.jpg") },
