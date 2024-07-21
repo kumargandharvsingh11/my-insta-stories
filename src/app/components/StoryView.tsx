@@ -42,7 +42,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) 
 
         const autoAdvance = () => {
             if (currentUser) {
-                if (currentStoryIndex < currentUser.stories.length - 1) {
+                if (currentStoryIndex < currentUser.stories.length - 1) { //to check if not last story
                     setCurrentStoryIndex(currentStoryIndex + 1);
                     if (progressBarRef.current) {
                         const currentWidth = progressBarRef.current.style.width;
@@ -102,6 +102,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) 
             setCurrentUserIndex(currentUserIndex - 1);
             setCurrentStoryIndex(users[currentUserIndex - 1].stories.length - 1);
         }
+        elapsedTime.current = 0;
     };
 
     const handleNext = () => {
@@ -111,7 +112,7 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) 
             setCurrentUserIndex(currentUserIndex + 1);
             setCurrentStoryIndex(0);
         }
-
+        elapsedTime.current = 0;
     }
 
     // Calculate divider positions
