@@ -23,6 +23,19 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
     const elapsedTime = useRef(0); // Use useRef to store elapsedTime
     const progressBarRef = useRef<HTMLDivElement>(null); // Ref for progress bar element
 
+    // State to trigger transition animation
+    const [storyTransition, setStoryTransition] = useState(false);
+
+    useEffect(() => {
+        if(currentStoryIndex===0 && currentUserIndex===0) return; // If both are 0 no transition needed
+        setStoryTransition(true);
+        const timeout = setTimeout(() => {
+            setStoryTransition(false);
+        }, 400); // Adjust the timeout value for the desired transition duration
+        return () => clearTimeout(timeout);
+    }, [currentStoryIndex, currentUserIndex]); // Trigger when story or user changes
+
+
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
 
@@ -117,7 +130,8 @@ const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose }) => {
                         src={currentUser.stories[currentStoryIndex].content}
                         alt={`${currentUser.username}'s story`}
                         fill
-                        className="object-contain"
+                        className={`object-contain transition-opacity duration-500 ${storyTransition ? "opacity-0" : "opacity-100"
+                            }`}
                     />
                     {/* Tap Zones */}
                     <div
