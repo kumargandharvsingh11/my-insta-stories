@@ -29,7 +29,6 @@ const StoryList: React.FC<StoryListProps> = ({ onStoryClick, users }) => {
                     <div style={{ width: "72px" }}>
                         <p className="text-center text-xs mt-1 truncate">{user.username}</p>
                     </div>
-                    {/* You can add a visual indicator for multiple stories here if needed */}
                 </div>
             ))}
         </div>

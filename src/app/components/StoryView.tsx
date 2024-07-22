@@ -12,20 +12,20 @@ interface StoryViewProps {
 const storyTime = 5000
 
 const StoryView: React.FC<StoryViewProps> = ({ initialUserId, onClose, users }) => {
-    const [progressBarWidth, setProgressBarWidth] = useState(0);
-    const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
-    const [isHolding, setIsHolding] = useState(false);
-    const [currentUserIndex, setCurrentUserIndex] = useState(
+    const [progressBarWidth, setProgressBarWidth] = useState<number>(0);
+    const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(0);
+    const [isHolding, setIsHolding] = useState<boolean>(false);
+    const [currentUserIndex, setCurrentUserIndex] = useState<number>(
         users.findIndex((user) => user.id === initialUserId)
     );
 
-    const currentUser = users[currentUserIndex];
+    const currentUser: IUser = users[currentUserIndex];
 
-    const elapsedTime = useRef(0); // Use useRef to store elapsedTime
+    const elapsedTime = useRef<number>(0); // Use useRef to store elapsedTime
     const progressBarRef = useRef<HTMLDivElement>(null); // Ref for progress bar element
 
     // State to trigger transition animation
-    const [storyTransition, setStoryTransition] = useState(false);
+    const [storyTransition, setStoryTransition] = useState<boolean>(false);
 
     useEffect(() => {
         if (currentStoryIndex === 0 && currentUserIndex === 0) return; // If both are 0 no transition needed
